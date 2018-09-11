@@ -22,6 +22,57 @@
 
   
 	<link rel="icon" type="image/png" href="download.png">
+	<script>
+		function validateEmail()
+		{
+			 var em = document.getElementById('email');
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!filter.test(em.value)) {
+		alert('Please provide a valid email address');
+		em.value="";
+		em.focus;
+		return false;
+		}
+		
+	}
+	function validateNumber(evt)
+	{
+	evt = (evt) ? evt : window.event;
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+			return false;
+		}
+		return true;
+	}
+	function validateSubmit()
+	{
+	if(document.forms['contactform'].name.value == "")
+	{
+	alert("please Enter name");
+	document.forms['contactform'].name.focus();
+	return false;
+	}
+	if(document.forms['contactform'].email.value == "")
+	{
+	alert("please Enter email id");
+	document.forms['contactform'].email.focus();
+	return false;
+	}
+	if(document.forms['contactform'].subject.value == "")
+	{
+	alert("please Enter your message");
+	document.forms['contactform'].subject.focus();
+	return false;
+	}
+	if(document.forms['contactform'].message.value == "")
+	{
+	alert("please Enter your message");
+	document.forms['contactform'].messsage.focus();
+	return false;
+	}
+	return true;
+	}
+</script>	
 
 </head>
 
@@ -355,14 +406,14 @@
 
    		<div class="col-twelve">
 
-            <form name="contactForm" id="contactForm" method="post" action="sendEmail.php">
+            <form name="contactForm" id="contactform" method="post" action="sendEmail.php">
       			<fieldset>
 
                   <div class="form-field">
  						   <input name="contactName" type="text" id="contactName" placeholder="Name" value="" minlength="2" required="">
                   </div>
                   <div class="form-field">
-	      			   <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required="">
+	      			   <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required="" required onblur='validateEmail()'>
 	               </div>
                   <div class="form-field">
 	     				   <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="">
@@ -371,7 +422,7 @@
 	                 	<textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10" cols="50" required=""></textarea>
 	               </div>                      
                  <div class="form-field">
-                     <button class="submitform">Submit</button>
+                     <button class="submitform" onclick='return validateSubmit()'>Submit </button>
                      <div id="submit-loader">
                         <div class="text-loader">Sending...</div>                             
        				      <div class="s-loader">
